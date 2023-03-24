@@ -50,6 +50,10 @@ const Tetris = () => {
       }, []);
 
     const movePlayer = (dir) => {
+        if (gameOver) {
+            return;
+        }
+
         if (!checkCollision(player, stage, { x: dir, y: 0 })) {
             updatePlayerPos({ x: dir, y: 0 });
         }
@@ -77,7 +81,10 @@ const Tetris = () => {
     }
 
     const dropPlayer = () => {
-        drop();
+
+        if (!gameOver) {
+            drop();
+        }
     }
 
 
