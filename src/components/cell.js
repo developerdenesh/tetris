@@ -12,7 +12,7 @@ const Cell = ({ type }) => {
             borderTopColor: `rgba(${TETROMINOS[type].color}, 1.0)`,
             borderBottomColor: `rgba(${TETROMINOS[type].color}, 0.1)`,
         }}>
-            Cells
+            
         </div>
     )
 }

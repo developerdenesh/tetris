@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // import Components
 import Stage from "./stage";
@@ -9,53 +9,95 @@ import StartButton from "./startButton";
 import { useStage } from "@/hooks/useStage";
 import { usePlayer } from "@/hooks/usePlayer";
 
+
+import { randomTetrominos } from "@/helper/tetrominos";
+
+
 // Createstage helper
-import { createStage } from "@/helper/gameHelper";
+import { createStage, checkCollision, STAGE_WIDTH } from "@/helper/gameHelper";
 
 const Tetris = () => {
     const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
 
-    const [player, updatePlayerPos, resetPlayer] = usePlayer();
+    const [player, updatePlayerPos, resetPlayer, setPlayer] = usePlayer();
     const [stage, setStage] = useStage({ player, resetPlayer });
+    let something = 8;
+
+
+    const move = (e) => {
+        e.preventDefault()
+
+        console.log(something)
+        
+        if (!gameOver) {
+            if (e.keyCode === 37) {
+                movePlayer(-0.5);
+            } else if (e.keyCode === 39) {
+                movePlayer(+0.5);
+            } else if (e.keyCode === 40) {
+                dropPlayer();
+            }
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('keydown', move);
+        
+        return () => {
+          window.removeEventListener('keydown', move);
+        }
+      }, []);
 
     const movePlayer = (dir) => {
-        updatePlayerPos({ x: dir, y: 0 });
+        if (!checkCollision(player, stage, {x: dir, y: 0})) {
+            updatePlayerPos({ x: dir, y: 0 });
+        }
     }
 
     const startGame = () => {
         // reset everything
         setStage(createStage());
         resetPlayer();
+        setGameOver(false);
     }
 
     const drop = () => {
-        updatePlayerPos({ x: 0, y: 1, collided: false});
+        if (!checkCollision(player, stage, {x: 0, y: 1})) {
+            updatePlayerPos({ x: 0, y: 0.5, collided: false });
+        } else {
+            if (player.pos.y < 1) {
+                console.log("GAME OVER")
+                setGameOver(true);
+                setDropTime(null)
+            }
+            updatePlayerPos({ x: 0, y: 0, collided: true });
+        }
     }
 
     const dropPlayer = () => {
         drop();
     }
 
-    const move = ({ keyCode }) => {
-        if (!gameOver) {
-            if (keyCode === 37) {
-                movePlayer(-1);
-            } else if (keyCode === 39) {
-                movePlayer(1);
-            } else if (keyCode === 40) {
-                dropPlayer();
-            }
-        }
+
+    const handle = () => {
+        console.log("called to ahndle")
     }
 
     return (
         <>
             <div>
-                <div style={{
-                    width: "100vw",
-                    height: "100vh",
-                }}>
+                <div
+                    style={{
+                        width: "100vw",
+                        height: "100vh",
+                    }}
+                >
+                    
+                    <button onClick={() => movePlayer(-0.5)}>Left</button>
+                    <button onClick={() => movePlayer(+0.5)}>Right</button>
+                    <button onClick={() => dropPlayer()}>Down</button>
+
                     <Stage stage={stage} />
                     <div style={{
                         display: "flex",

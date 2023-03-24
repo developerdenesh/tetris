@@ -13,7 +13,9 @@ const StartButton = ({ callback }) => {
             color: "white",
             background: "#333",
             fontSize: "1rem",
-            outline: "none"
+            outline: "none",
+            cursor: "pointer",
+            textAlign: "center"
         }}
         
         onClick={callback}

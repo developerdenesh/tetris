@@ -20,7 +20,7 @@ const Stage = ({ stage }) => {
             // maxWidth: "25vw",
             width: "100%",
             border: "2px solid #333",
-            // background: "#111",
+            background: "#111",
             gridTemplateColumns: `repeat(${width}, 1fr)`,
             gridTemplateRows: `repeat(${height}, calc(25vw/${width}))`
 
