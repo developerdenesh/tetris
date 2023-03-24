@@ -20,7 +20,7 @@ const Tetris = () => {
     const [dropTime, setDropTime] = useState(null);
     const [gameOver, setGameOver] = useState(false);
 
-    const [player, updatePlayerPos, resetPlayer, setPlayer] = usePlayer();
+    const [player, updatePlayerPos, resetPlayer, setPlayer, playerRotate] = usePlayer();
     const [stage, setStage] = useStage({ player, resetPlayer });
     let something = 8;
 
@@ -29,7 +29,7 @@ const Tetris = () => {
         e.preventDefault()
 
         console.log(something)
-        
+
         if (!gameOver) {
             if (e.keyCode === 37) {
                 movePlayer(-0.5);
@@ -42,15 +42,17 @@ const Tetris = () => {
     }
 
     useEffect(() => {
-        window.addEventListener('keydown', move);
-        
-        return () => {
-          window.removeEventListener('keydown', move);
-        }
+        // window.addEventListener('keydown', move);
+
+        startGame();
+
+        // return () => {
+        //   window.removeEventListener('keydown', move);
+        // }
       }, []);
 
     const movePlayer = (dir) => {
-        if (!checkCollision(player, stage, {x: dir, y: 0})) {
+        if (!checkCollision(player, stage, { x: dir, y: 0 })) {
             updatePlayerPos({ x: dir, y: 0 });
         }
     }
@@ -63,7 +65,7 @@ const Tetris = () => {
     }
 
     const drop = () => {
-        if (!checkCollision(player, stage, {x: 0, y: 1})) {
+        if (!checkCollision(player, stage, { x: 0, y: 1 })) {
             updatePlayerPos({ x: 0, y: 0.5, collided: false });
         } else {
             if (player.pos.y < 1) {
@@ -93,10 +95,29 @@ const Tetris = () => {
                         height: "100vh",
                     }}
                 >
-                    
-                    <button onClick={() => movePlayer(-0.5)}>Left</button>
-                    <button onClick={() => movePlayer(+0.5)}>Right</button>
-                    <button onClick={() => dropPlayer()}>Down</button>
+
+                    <button
+                        style={{
+                            fontSize: "4vw",
+                            marginLeft: "35vw"
+
+                        }}
+                        onClick={() => movePlayer(-0.5)}>Left</button>
+                    <button
+                        style={{
+                            fontSize: "4vw",
+                        }}
+                        onClick={() => dropPlayer()}>Down</button>
+                    <button
+                        style={{
+                            fontSize: "4vw",
+                        }}
+                        onClick={() => movePlayer(+0.5)}>Right</button>
+                    <button
+                        style={{
+                            fontSize: "4vw",
+                        }}
+                        onClick={() => playerRotate(stage, 1)}>Rotate</button>
 
                     <Stage stage={stage} />
                     <div style={{

@@ -3,18 +3,15 @@ import React from "react";
 const StartButton = ({ callback }) => {
     return (
         <div style={{
-            boxSizing: "border-box",
             margin: "0 0 20px 0",
             padding: "20px",
+            border: "4px solid #333",
             minHeight: "30px",
             width: "100%",
-            borderRadius: "20px",
-            border: "none",
+            borderRadius: "50px",
+            background: "#001",
             color: "white",
-            background: "#333",
-            fontSize: "1rem",
-            outline: "none",
-            cursor: "pointer",
+            alignItems: "center",
             textAlign: "center"
         }}
         
