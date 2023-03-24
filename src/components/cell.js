@@ -1,5 +1,5 @@
 import React from "react";
-import { randomTetrominos, TETROMINOS } from "@/helper/tetrominos";
+import { TETROMINOS } from "@/helper/tetrominos";
 
 const Cell = ({ type }) => {
     return (
