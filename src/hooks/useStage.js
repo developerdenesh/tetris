@@ -38,7 +38,11 @@ export const useStage = ({ player, resetPlayer }) => {
                         const merged_status = `${player.collided ? "merged" : "clear"}`
                         const indexX = x + player.pos.x
                         const indexY = y + player.pos.y
-                        newStage[indexY][indexX] = [value, merged_status]
+                        const floored_index_x = Math.floor(indexX)
+
+                        console.log(`Going to set x: ${floored_index_x} and y: ${indexY} with values ${value} and ${merged_status}`)
+                        console.log(`Stage value is: ${newStage[indexY][floored_index_x]}`)
+                        newStage[indexY][floored_index_x] = [value, merged_status]
                     }
                 })
             })

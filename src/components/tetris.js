@@ -8,9 +8,7 @@ import StartButton from "./startButton";
 // Custom hooks
 import { useStage } from "@/hooks/useStage";
 import { usePlayer } from "@/hooks/usePlayer";
-
-
-import { randomTetrominos } from "@/helper/tetrominos";
+import { useInterval } from "@/hooks/useInterval";
 
 
 // Createstage helper
@@ -60,6 +58,7 @@ const Tetris = () => {
     const startGame = () => {
         // reset everything
         setStage(createStage());
+        setDropTime(1000);
         resetPlayer();
         setGameOver(false);
     }
@@ -85,6 +84,10 @@ const Tetris = () => {
     const handle = () => {
         console.log("called to ahndle")
     }
+
+    useInterval(() => {
+        drop();
+    }, dropTime)
 
     return (
         <>
