@@ -18,19 +18,9 @@ export default function Home() {
           <div>
           </div>
         </div>
-
-        <a
-            href="/play"
-            className={styles.card}
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Welcome <span>-&gt;</span>
-            </h2>
             <p className={inter.className}>
               Begin the Tetris game
             </p>
-          </a>
 
         <div className={styles.grid}>
         </div>

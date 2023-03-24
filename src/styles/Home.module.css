@@ -52,11 +52,12 @@
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
+  color: darkblue;
 }
 
 .card span {
   display: inline-block;
-  transition: transform 200ms;
+  transition: transform 300ms;
 }
 
 .card h2 {
