@@ -5,6 +5,13 @@ import Stage from "./stage";
 import Display from "./Display";
 import StartButton from "./startButton";
 
+// This is the font
+import { Inter } from 'next/font/google'
+const inter = Inter({ subsets: ['latin'] })
+
+// Icons
+import { RepeatIcon, AddIcon, Warnin, RepeatIcongIcon, TriangleDownIcon } from '@chakra-ui/icons'
+
 // Custom hooks
 import { useStage } from "@/hooks/useStage";
 import { usePlayer } from "@/hooks/usePlayer";
@@ -22,13 +29,10 @@ const Tetris = () => {
     const [player, updatePlayerPos, resetPlayer, setPlayer, playerRotate] = usePlayer();
     const [stage, setStage, rowsCleared] = useStage({ player, resetPlayer });
     const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared)
-    let something = 8;
 
 
     const move = (e) => {
         e.preventDefault()
-
-        console.log(something)
 
         if (!gameOver) {
             if (e.keyCode === 37) {
@@ -49,7 +53,7 @@ const Tetris = () => {
         // return () => {
         //   window.removeEventListener('keydown', move);
         // }
-      }, []);
+    }, []);
 
     const movePlayer = (dir) => {
         if (gameOver) {
@@ -119,28 +123,38 @@ const Tetris = () => {
                     }}
                 >
 
+
+
                     <button
+                        className={inter.className}
                         style={{
                             fontSize: "4vw",
-                            marginLeft: "35vw"
+                            marginLeft: "45vw"
 
                         }}
-                        onClick={() => movePlayer(-0.5)}>Left</button>
+                        onClick={() => movePlayer(-0.5)}>
+                        <span>&lt;-</span>
+                    </button>
+
+
                     <button
                         style={{
                             fontSize: "4vw",
                         }}
-                        onClick={() => dropPlayer()}>Down</button>
+                        onClick={() => dropPlayer()}><TriangleDownIcon /></button>
+                    <button
+                        className={inter.className}
+                        style={{
+                            fontSize: "4vw",
+                        }}
+                        onClick={() => movePlayer(+0.5)}>
+                        <span>-&gt;</span>
+                    </button>
                     <button
                         style={{
                             fontSize: "4vw",
                         }}
-                        onClick={() => movePlayer(+0.5)}>Right</button>
-                    <button
-                        style={{
-                            fontSize: "4vw",
-                        }}
-                        onClick={() => playerRotate(stage, 1)}>Rotate</button>
+                        onClick={() => playerRotate(stage, 1)}><RepeatIcon /></button>
 
                     <Stage stage={stage} />
                     <div style={{
