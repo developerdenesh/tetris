@@ -3,7 +3,7 @@ import React from "react";
 const Cell = () => {
     return (
         <div>
-            cell
+            cellulose
         </div>
     )
 }
