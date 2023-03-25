@@ -17,7 +17,7 @@ const StartButton = ({ callback }) => {
         
         onClick={callback}
         >
-            START GAME
+            Reset
         </div>
     )
 }

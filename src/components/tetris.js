@@ -109,7 +109,13 @@ const Tetris = () => {
 
     return (
         <>
-            <div ref={inputreference} role={"button"} tabIndex={0} onKeyDown={e => move(e)}>
+            <div 
+                ref={inputreference} 
+                role={"button"} 
+                tabIndex={0} 
+                onKeyDown={e => move(e)}
+                style={{outline: "none"}}
+            >
                 <div
                     style={{
                         width: "100vw",
