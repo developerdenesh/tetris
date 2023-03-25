@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // import Components
 import Stage from "./stage";
@@ -30,29 +30,28 @@ const Tetris = () => {
     const [stage, setStage, rowsCleared] = useStage({ player, resetPlayer });
     const [score, setScore, rows, setRows, level, setLevel] = useGameStatus(rowsCleared)
 
+    const inputreference = useRef(null)
+
 
     const move = (e) => {
-        e.preventDefault()
-
         if (!gameOver) {
+            e.preventDefault()
             if (e.keyCode === 37) {
                 movePlayer(-0.5);
             } else if (e.keyCode === 39) {
                 movePlayer(+0.5);
             } else if (e.keyCode === 40) {
                 dropPlayer();
+            } else if (e.keyCode === 38) {
+                playerRotate(stage, 1);
             }
         }
     }
 
+    // This is effectively component did mount
     useEffect(() => {
-        // window.addEventListener('keydown', move);
-
         startGame();
-
-        // return () => {
-        //   window.removeEventListener('keydown', move);
-        // }
+        inputreference.current.focus();
     }, []);
 
     const movePlayer = (dir) => {
@@ -104,26 +103,19 @@ const Tetris = () => {
         }
     }
 
-
-    const handle = () => {
-        console.log("called to ahndle")
-    }
-
     useInterval(() => {
         drop();
     }, dropTime)
 
     return (
         <>
-            <div>
+            <div ref={inputreference} role={"button"} tabIndex={0} onKeyDown={e => move(e)}>
                 <div
                     style={{
                         width: "100vw",
                         height: "100vh",
                     }}
                 >
-
-
 
                     <button
                         className={inter.className}
